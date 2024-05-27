@@ -7,7 +7,8 @@
 
 # User-specific stuff
 .venv
-.figures
+figures
+horizon_3d.pkl
 
 
 .idea/**/workspace.xml
