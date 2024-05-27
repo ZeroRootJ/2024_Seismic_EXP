@@ -1,18 +1,9 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 import os
 import sys
-
-
-def draw_guide():
-    global horizon_3d
-    if len(horizon_3d) > 0:
-        prev_horizon = horizon_3d[-1]
-        if len(prev_horizon) > 0:
-            plt.scatter(*zip(*prev_horizon), color='green', alpha=0.5, s=10)  # Scatter plot data points (x, y
-            plt.plot(*zip(*prev_horizon), color='green', alpha=0.5)  # Connect the scatter plot data points
-            fig.canvas.draw()
+import numpy as np
+from scipy.interpolate import LinearNDInterpolator
 
 
 def draw_annotations(alpha=1.0):
@@ -123,7 +114,7 @@ horizon_3d = []
 horizon_2d = []
 current_xline = 0
 
-fig, ax = plt.subplots(figsize=(12, 12), num='Seismic Exploration Final Project')
+fig, ax = plt.subplots(figsize=(8, 8), num='Seismic Exploration Final Project')
 plt.imshow(Xline[current_xline], cmap='seismic')
 fig.canvas.mpl_connect('button_press_event', on_dblclick)
 fig.canvas.mpl_connect('key_press_event', on_key_press)

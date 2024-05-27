@@ -39,6 +39,7 @@ def draw_horizon(file_path):
 
     # TIN 보간된 3D 면 플롯
     global ax
+    print(X, Y, X)
     ax.plot_surface(X, Y, Z, cmap='seismic', edgecolor='none')
 
 
