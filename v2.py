@@ -34,14 +34,15 @@ class DragHandler:
         xpress, ypress = self.press
         xdata, ydata = event.xdata, event.ydata
 
-        if isXline is True:
-            p = (int(event.xdata), current_Xline * 10, int(event.ydata))
-            points.append(p)
-        else:
-            p = (current_Inline * 10, int(event.xdata), int(event.ydata))
-            points.append(p)
+        if button_erase.get_status()[1]:
+            if isXline is True:
+                p = (int(event.xdata), current_Xline * 10, int(event.ydata))
+                points.append(p)
+            else:
+                p = (current_Inline * 10, int(event.xdata), int(event.ydata))
+                points.append(p)
 
-        draw_annotations()
+            draw_annotations()
         # print(f"Mouse dragged to: ({xdata}, {ydata}) with delta: ({dx}, {dy})")
 
 
@@ -254,7 +255,7 @@ button_interpolate_ax = plt.axes([0.7, 0.25, 0.2, 0.075])
 button_interpolate = Button(button_interpolate_ax, 'Interpolate')
 
 button_erase_ax = plt.axes([0.7, 0.35, 0.2, 0.075])  # Adjust the position and size as needed
-button_erase = CheckButtons(button_erase_ax, ['Erase'])
+button_erase = CheckButtons(button_erase_ax, ['Erase', 'Drag'])
 
 
 
