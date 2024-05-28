@@ -12,7 +12,12 @@ def draw_horizon(file_path):
     # 3. 데이터 추출
     points = []
     for i in range(len(data)):
-        points.append((data[i][0], data[i][1], 873-data[i][2]))
+        try:
+            int(data[i][2])
+            if data[i][2] > 10:
+                points.append((data[i][0], data[i][1], 873-data[i][2]))
+        except:
+            pass
 
     # 4. TIN 보간을 위한 삼각형화
     triangulation = np.array(points)
