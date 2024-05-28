@@ -7,6 +7,44 @@ from matplotlib.widgets import Button, CheckButtons
 from scipy.interpolate import interp1d
 
 
+class DragHandler:
+    global points
+    def __init__(self, ax):
+        self.ax = ax
+        self.press = None
+        self.cidpress = ax.figure.canvas.mpl_connect('button_press_event', self.on_press)
+        self.cidrelease = ax.figure.canvas.mpl_connect('button_release_event', self.on_release)
+        self.cidmotion = ax.figure.canvas.mpl_connect('motion_notify_event', self.on_motion)
+
+    def on_press(self, event):
+        if event.inaxes != self.ax:
+            return
+        self.press = (event.xdata, event.ydata)
+        print(f"Mouse pressed at: {self.press}")
+
+    def on_release(self, event):
+        self.press = None
+        print(f"Mouse released at: ({event.xdata}, {event.ydata})")
+
+    def on_motion(self, event):
+        if self.press is None:
+            return
+        if event.inaxes != self.ax:
+            return
+        xpress, ypress = self.press
+        xdata, ydata = event.xdata, event.ydata
+
+        if isXline is True:
+            p = (int(event.xdata), current_Xline * 10, int(event.ydata))
+            points.append(p)
+        else:
+            p = (current_Inline * 10, int(event.xdata), int(event.ydata))
+            points.append(p)
+
+        draw_annotations()
+        # print(f"Mouse dragged to: ({xdata}, {ydata}) with delta: ({dx}, {dy})")
+
+
 def read_np(data_folder):
     Inline = []
     Xline = []
@@ -53,7 +91,7 @@ def interpolate_points():
 
         points = [p for p in points if p[0] != current_Inline * 10]
         X_new = np.linspace(0, 220, 221).astype(int)
-        f = interp1d(X, Y, kind='linear')
+        f = interp1d(X, Y, kind='linear', fill_value='extrapolate')
         Y_new = f(X_new)
 
         for i in range(len(X_new)):
@@ -228,6 +266,9 @@ button_erase.on_clicked(on_erase_button_click)
 
 fig.canvas.mpl_connect('button_press_event', on_dblclick)
 fig.canvas.mpl_connect('key_press_event', on_key_press)
+
+dh = DragHandler(ax)
+
 
 
 plt.show()
