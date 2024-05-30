@@ -9,16 +9,16 @@ def draw_horizon(file_path):
     with open(file_path, 'rb') as file:
         data = pickle.load(file)
 
+    # print(data)
     # 3. 데이터 추출
     points = []
     for i in range(len(data)):
-        try:
-            int(data[i][2])
-            if data[i][2] > 10:
+        if data[i][2]:
+            try:
+                temp = int(data[i][2])
                 points.append((data[i][0], data[i][1], 873-data[i][2]))
-        except:
-            pass
-
+            except:
+                pass
     # 4. TIN 보간을 위한 삼각형화
     triangulation = np.array(points)
 
@@ -57,6 +57,6 @@ ax.set_zlim(0, 873)
 ax.set_box_aspect([1, 1, 870 / 270])
 
 
-draw_horizon('savefile.pkl')
+draw_horizon('savefile4.pkl')
 
 plt.show()
