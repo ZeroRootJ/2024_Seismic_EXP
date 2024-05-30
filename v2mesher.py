@@ -30,9 +30,9 @@ def draw_horizon(file_path):
     z_range = z_max - z_min
 
     # 삼각형 보간을 위한 x, y, z 값 배열 생성
-    x_vals = np.linspace(x_min, x_max, int(x_range))
-    y_vals = np.linspace(y_min, y_max, int(y_range))
-    z_vals = np.linspace(z_min, z_max, int(z_range))
+    x_vals = np.linspace(x_min, x_max, 1000)
+    y_vals = np.linspace(y_min, y_max, 1000)
+    # z_vals = np.linspace(z_min, z_max, int(z_range))
 
     # 6. TIN 보간
     interp = LinearNDInterpolator(triangulation[:, :2], triangulation[:, 2])
@@ -44,7 +44,8 @@ def draw_horizon(file_path):
     # TIN 보간된 3D 면 플롯
     global ax
     print(X, Y, X)
-    ax.plot_surface(X, Y, Z, cmap='seismic', edgecolor='none')
+    #ax.plot_surface(X, Y, Z, cmap='seismic', edgecolor='none')
+    ax.plot_surface(X, Y, Z, edgecolor='none', alpha=0.7, cmap='viridis')
 
 
 fig = plt.figure(figsize=(15, 15))
@@ -57,6 +58,6 @@ ax.set_zlim(0, 873)
 ax.set_box_aspect([1, 1, 870 / 270])
 
 
-draw_horizon('savefile4.pkl')
+draw_horizon('savefile.pkl')
 
 plt.show()
