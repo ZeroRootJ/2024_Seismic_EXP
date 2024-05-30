@@ -57,6 +57,6 @@ ax.set_zlim(0, 873)
 ax.set_box_aspect([1, 1, 870 / 270])
 
 
-draw_horizon('savefile.pkl')
+draw_horizon('savefile4.pkl')
 
 plt.show()

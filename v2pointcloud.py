@@ -5,7 +5,7 @@ import numpy as np
 from scipy.interpolate import LinearNDInterpolator
 
 
-def draw_horizon(file_path):
+def draw_horizon(file_path, color):
     with open(file_path, 'rb') as file:
         data = pickle.load(file)
 
@@ -26,7 +26,7 @@ def draw_horizon(file_path):
 
     # TIN 보간된 3D 면 플롯
     global ax
-    sc = ax.scatter(x, y, z, c=z, cmap='viridis', marker='o', s=2, alpha=0.6,)
+    sc = ax.scatter(x, y, z, c=color, marker='o', s=1, alpha=0.2,)
 
 
 fig = plt.figure(figsize=(15, 15))
@@ -39,6 +39,8 @@ ax.set_zlim(0, 873)
 ax.set_box_aspect([1, 1, 870 / 270])
 
 
-draw_horizon('savefile.pkl')
+draw_horizon('savefile4.pkl','green')
+# draw_horizon('pklfault.pkl','red')
+
 
 plt.show()
